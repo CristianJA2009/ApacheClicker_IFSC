@@ -6,6 +6,7 @@
 body {
     background-color: rgb(113, 137, 137);
     background-image: url(img/wallpaper.jpg);
+    background-size: cover;
     background-attachment: fixed;
 }
 
@@ -27,15 +28,25 @@ body {
     margin-top: 50px;
 }
 
-#thecookie {
+#thecookie, #cookie_shadow {
     width: 325px;
     margin: auto;
     display: block;
 }
 
-#thecookie:hover {
+#thecookie:hover, #cookie_shadow:hover  {
     width: 330px;
     cursor: pointer;
+}
+
+#cookie_shadow {
+    position: relative;
+    bottom: 325px;
+    z-index: -1;
+}
+
+.divCookie {
+    margin-bottom: -325px;
 }
 
 #cookies,

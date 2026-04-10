@@ -26,10 +26,12 @@ function valorUpdate() {
 // Função do Clique
 cookie.addEventListener("click", function () {
     cookie.style.transform = "scale(1.1)";
+    document.getElementById("cookie_shadow").style.transform = "scale(1.1)";
     cookiesAssados += cookiesPorClick;
     valorUpdate()
     setTimeout(() => {
         cookie.style.transform = "scale(1.0)";
+        document.getElementById("cookie_shadow").style.transform = "scale(1.0)";
     }, 100);
 });
 
