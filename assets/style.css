@@ -1,0 +1,86 @@
+* {
+    font-family: sans-serif;
+    transition: all ease 0.2s;
+}
+
+body {
+    background-color: rgb(113, 137, 137);
+    background-image: url(img/wallpaper.jpg);
+    background-attachment: fixed;
+}
+
+.container {
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    height: 840px;
+}
+
+.title {
+    background-color: white;
+    width: 150px;
+    text-align: center;
+    margin: auto;
+    padding: 5px;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+#thecookie {
+    width: 325px;
+    margin: auto;
+    display: block;
+}
+
+#thecookie:hover {
+    width: 330px;
+    cursor: pointer;
+}
+
+#cookies,
+#upgrades {
+    background-color: white;
+    width: fit-content;
+    margin: auto;
+    font-size: 25px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#upgrades {
+    font-size: 20px;
+}
+
+.upgradeBtn {
+    background-color: lightgray;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 15px;
+    width: fit-content;
+    height: 30px;
+    position: relative;
+    bottom: 2px;
+}
+
+.upgradeBtn:hover {
+    cursor: pointer;
+    background-color: rgb(176, 176, 176);
+}
+
+.cookiePreco {
+    color: white;
+    background-color: green;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+#debug {
+    background-color: white;
+    width: 250px;
+    padding: 5px;
+    position: fixed;
+    top: 0px;
+    left: 10px;
+}
