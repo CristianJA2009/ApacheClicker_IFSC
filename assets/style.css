@@ -10,12 +10,38 @@ body {
     background-attachment: fixed;
 }
 
+.body {
+    display: flex;
+}
+
 .container {
     margin: 50px;
+    width: 425px;
+    height: max-content;
     display: flex;
     flex-direction: column;
     gap: 50px;
     height: 840px;
+}
+
+.flex1 {
+    flex: 1;
+}
+
+.flex2 {
+    flex: 2;
+}
+
+.bg1 {
+    background-image: url('img/wallpaper2.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    margin-left: -8px;
+    margin-top: -8px;
+    margin-bottom: -8px;
+    margin-right: -8px;
+    border: 5px solid black;
+    z-index: 1;
 }
 
 .title {
@@ -28,15 +54,21 @@ body {
     margin-top: 50px;
 }
 
-#thecookie, #cookie_shadow {
+#thecookie,
+#cookie_shadow {
     width: 325px;
     margin: auto;
     display: block;
 }
 
-#thecookie:hover, #cookie_shadow:hover  {
+#thecookie:hover,
+#cookie_shadow:hover {
     width: 330px;
     cursor: pointer;
+}
+
+#thecookie {
+    z-index: 1;
 }
 
 #cookie_shadow {

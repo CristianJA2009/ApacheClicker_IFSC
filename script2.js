@@ -82,13 +82,18 @@ if (cursoresComprados >= 1) {
 valorUpdate()
 
 // Debug >>>
-document.getElementById("debug").innerHTML =
-    "Cookies : " + cookiesAssados +
-    "<br>Cookies por Clique : " + cookiesPorClick +
-    "<button id='cookieAdd'>Add 1k Cookie</button>" +
-    "<hr>Upgrade Valor Base : " + upgradeClick['valorBase'].toFixed(1) +
-    "<br>Upgrade Juros Base : " + upgradeClick['jurosBase'].toFixed(1) + "<br>Upgrade Valor Total : " + upgradeClickValor.toFixed(1) +
-    "<hr>Limpar : <br><button id='clearCookies'>Cookies</button><br><button id='clearStorage'>Storage</button>"
+if (debug >= 1) {
+    document.getElementById("debug").innerHTML =
+        "Cookies : " + cookiesAssados +
+        "<br>Cookies por Clique : " + cookiesPorClick +
+        "<button id='cookieAdd'>Add 1k Cookie</button>" +
+        "<hr>Upgrade Valor Base : " + upgradeClick['valorBase'].toFixed(1) +
+        "<br>Upgrade Juros Base : " + upgradeClick['jurosBase'].toFixed(1) + "<br>Upgrade Valor Total : " + upgradeClickValor.toFixed(1) +
+        "<hr>Limpar : <br><button id='clearCookies'>Cookies</button><br><button id='clearStorage'>Storage</button>"
+}
+else {
+    document.getElementById("debug").style.display = 'none';
+}
 
 // Add 1k Cookie
 document.getElementById("cookieAdd").addEventListener("click", function () {
