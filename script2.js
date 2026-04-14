@@ -1,7 +1,8 @@
 // Huds
 let cookie = document.getElementById("thecookie");
 let cookiesHud = document.getElementById("cookies");
-let upgradesHud = document.getElementById("upgrades")
+let upgradesHud = document.getElementById("upgrades");
+let construcoesHud = document.getElementById("construcoes")
 
 // Valores
 let cookiesAssados = Math.round(parseFloat(localStorage.getItem("cookiesStored"))) || 0;
@@ -43,7 +44,13 @@ function upgradesTab() {
     upgradesHud.innerHTML = "Cookies por Clique : " + cookiesPorClick + " <button id='upgradeClickBtn' class='upgradeBtn'>Comprar <b class='cookiePreco'>" + Math.round(upgradeClickValor.toFixed(1)) + "🍪</b></button>";
 }
 
+// Criação da Tabela de Construções
+function construcoesTab() {
+    construcoesHud.innerHTML = "Cursores : " + cookiesPorClick + " <button id='upgradeClickBtn' class='upgradeBtn'>Comprar <b class='cookiePreco'>" + Math.round(upgradeClickValor.toFixed(1)) + "🍪</b></button>";
+}
+
 upgradesTab()
+construcoesTab()
 
 // Comprar Upgrades >>>
 
@@ -77,38 +84,58 @@ if (cursoresComprados >= 1) {
     }, 1000);
 }
 
-
 // Atualizar a HUD com valores atualizados
 valorUpdate()
 
 // Debug >>>
-if (debug >= 1) {
-    document.getElementById("debug").innerHTML =
-        "Cookies : " + cookiesAssados +
-        "<br>Cookies por Clique : " + cookiesPorClick +
-        "<button id='cookieAdd'>Add 1k Cookie</button>" +
-        "<hr>Upgrade Valor Base : " + upgradeClick['valorBase'].toFixed(1) +
-        "<br>Upgrade Juros Base : " + upgradeClick['jurosBase'].toFixed(1) + "<br>Upgrade Valor Total : " + upgradeClickValor.toFixed(1) +
-        "<hr>Limpar : <br><button id='clearCookies'>Cookies</button><br><button id='clearStorage'>Storage</button>"
+
+let debug = false
+document.getElementById("debug").style.display = 'none'
+
+const debugBtn = document.getElementById("debugBtn")
+console.log("debugBtn:", debugBtn) // <- deve aparecer o elemento, não null
+
+document.getElementById("debugBtn").addEventListener("click", function () {
+    debug = !debug
+    console.log("debug agora é:", debug) // <- deve alternar true/false
+    updateDebug()
+})
+
+function updateDebug() {
+    if (debug) {
+        document.getElementById("debug").style.display = 'block'
+        document.getElementById("debug").innerHTML =
+            "Cookies : " + cookiesAssados +
+            "<br>Cookies por Clique : " + cookiesPorClick +
+            "<button id='cookieAdd'>Add 1k Cookie</button>" +
+            "<hr>Upgrade Valor Base : " + upgradeClick['valorBase'].toFixed(1) +
+            "<br>Upgrade Juros Base : " + upgradeClick['jurosBase'].toFixed(1) +
+            "<br>Upgrade Valor Total : " + upgradeClickValor.toFixed(1) +
+            "<hr>Limpar : <br><button id='clearCookies'>Cookies</button><br><button id='clearStorage'>Storage</button>"
+
+        // Add 1k Cookies
+
+        document.getElementById("cookieAdd").addEventListener("click", function () {
+            cookiesAssados += 1000
+            valorUpdate()
+            updateDebug()
+        })
+
+        // Limpar Cookies
+
+        document.getElementById("clearCookies").addEventListener("click", function () {
+            cookiesAssados = 0
+            valorUpdate()
+            updateDebug()
+        })
+
+        // Limpar Storage
+
+        document.getElementById("clearStorage").addEventListener("click", function () {
+            localStorage.clear()
+            window.location.reload()
+        })
+    } else {
+        document.getElementById("debug").style.display = 'none'
+    }
 }
-else {
-    document.getElementById("debug").style.display = 'none';
-}
-
-// Add 1k Cookie
-document.getElementById("cookieAdd").addEventListener("click", function () {
-    cookiesAssados += 1000
-    valorUpdate()
-})
-
-// Limpar Cookies
-document.getElementById("clearCookies").addEventListener("click", function () {
-    cookiesAssados = 0
-    valorUpdate()
-})
-
-// Limpar Storage
-document.getElementById("clearStorage").addEventListener("click", function () {
-    localStorage.clear()
-    window.location.reload()
-})

@@ -32,7 +32,8 @@ body {
     flex: 2;
 }
 
-.bg1 {
+.bg1,
+.bg2 {
     background-image: url('img/wallpaper2.jpg');
     background-size: cover;
     background-attachment: fixed;
@@ -40,8 +41,19 @@ body {
     margin-top: -8px;
     margin-bottom: -8px;
     margin-right: -8px;
-    border: 5px solid black;
     z-index: 1;
+}
+
+.bg1 {
+    border-style: solid;
+    border-width: 0 10px 0 0;
+    border-image: url('img/madeira.png') 0 50 0 0 / 0 10px 0 0;
+}
+
+.bg2 {
+    border-style: solid;
+    border-width: 0 0 0 10px;
+    border-image: url('img/madeira.png') 0 0 0 50 / 0 0 0 10px;
 }
 
 .title {
@@ -68,6 +80,7 @@ body {
 }
 
 #thecookie {
+    margin-top: 100px;
     z-index: 1;
 }
 
@@ -82,7 +95,8 @@ body {
 }
 
 #cookies,
-#upgrades {
+#upgrades,
+#construcoes {
     background-color: white;
     width: fit-content;
     margin: auto;
@@ -126,4 +140,10 @@ body {
     position: fixed;
     top: 0px;
     left: 10px;
+    z-index: 10;
+}
+
+#debugBtn {
+    width: 25%;
+    margin: auto;
 }
