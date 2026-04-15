@@ -80,7 +80,6 @@ body {
 }
 
 #thecookie {
-    margin-top: 100px;
     z-index: 1;
 }
 
@@ -91,12 +90,13 @@ body {
 }
 
 .divCookie {
-    margin-bottom: -325px;
+    /* margin-bottom: -325px; */
 }
 
 #cookies,
 #upgrades,
-#construcoes {
+#construcoes,
+#perSec {
     background-color: white;
     width: fit-content;
     margin: auto;
@@ -105,8 +105,17 @@ body {
     border-radius: 10px;
 }
 
+#perSec {
+    margin-top: -85px;
+    font-size: 15px;
+}
+
 #upgrades {
     font-size: 20px;
+}
+
+.icon {
+    margin-bottom: -12.5px;
 }
 
 .upgradeBtn {

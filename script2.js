@@ -2,7 +2,8 @@
 let cookie = document.getElementById("thecookie");
 let cookiesHud = document.getElementById("cookies");
 let upgradesHud = document.getElementById("upgrades");
-let construcoesHud = document.getElementById("construcoes")
+let construcoesHud = document.getElementById("construcoes");
+let perSec = document.getElementById("perSec");
 
 // Valores
 let cookiesAssados = Math.round(parseFloat(localStorage.getItem("cookiesStored"))) || 0;
@@ -12,7 +13,12 @@ let upgradeClick = {
     valorBase: parseFloat(localStorage.getItem("upgradeClickValor")) || 10,
     jurosBase: parseFloat(localStorage.getItem("upgradeClickJurosB")) || 1,
 }
-let cursoresComprados = 10;
+let cursoresComprados = {
+    nome: "bCursor",
+    cps: parseFloat(localStorage.getItem("bCursorCPS")) || 0,
+    valorBase: parseFloat(localStorage.getItem("bCursorValor")) || 10,
+    jurosBase: parseFloat(localStorage.getItem("bCursorJuros")) || 1.5,
+};
 
 // Função que Atualiza Valor de Cookies
 function valorUpdate() {
@@ -23,6 +29,19 @@ function valorUpdate() {
         cookiesHud.style.backgroundColor = "white"
     }, 100);
 }
+
+// Função que Atualiza os Cookies por Segundo (CPS)
+function perSecUpdate() {
+    if (cursoresComprados['cps'] >= 1) {
+        perSec.textContent = 'cookies por segundo : ' + cursoresComprados['cps']
+    }
+}
+
+if (!cursoresComprados['cps'] >= 1) {
+    perSec.style.display = 'none'
+}
+
+perSecUpdate()
 
 // Função do Clique
 cookie.addEventListener("click", function () {
@@ -39,14 +58,17 @@ cookie.addEventListener("click", function () {
 // Definição dos Valores de Upgrade
 upgradeClickValor = upgradeClick['valorBase'] * upgradeClick['jurosBase'];
 
+// Definição dos Valores de Construções
+bCursorValor = cursoresComprados['valorBase'] * cursoresComprados['jurosBase'];
+
 // Criação da Tabela de Upgrades
 function upgradesTab() {
-    upgradesHud.innerHTML = "Cookies por Clique : " + cookiesPorClick + " <button id='upgradeClickBtn' class='upgradeBtn'>Comprar <b class='cookiePreco'>" + Math.round(upgradeClickValor.toFixed(1)) + "🍪</b></button>";
+    upgradesHud.innerHTML = "<img src='assets/img/click.png' class='icon' title='Cookies por Clique'>x " + cookiesPorClick + " <button id='upgradeClickBtn' class='upgradeBtn'>Comprar <b class='cookiePreco'>" + Math.round(upgradeClickValor.toFixed(1)) + "🍪</b></button>";
 }
 
 // Criação da Tabela de Construções
 function construcoesTab() {
-    construcoesHud.innerHTML = "Cursores : " + cookiesPorClick + " <button id='upgradeClickBtn' class='upgradeBtn'>Comprar <b class='cookiePreco'>" + Math.round(upgradeClickValor.toFixed(1)) + "🍪</b></button>";
+    construcoesHud.innerHTML = "<img src='assets/img/cursor.png' class='icon' title='Cookies por Clique'>x " + cursoresComprados['cps'] + " <button id='bCursorBtn' class='upgradeBtn'>Comprar <b class='cookiePreco'>" + Math.round(bCursorValor.toFixed(1)) + "🍪</b></button>";
 }
 
 upgradesTab()
@@ -74,14 +96,35 @@ document.getElementById("upgradeClickBtn").addEventListener("click", function ()
     }
 })
 
+// Comprar Cursores
+document.getElementById("bCursorBtn").addEventListener("click", function () {
+    if (cookiesAssados >= bCursorValor) {
+        cookiesAssados -= bCursorValor
+        valorUpdate()
+        cursoresComprados['jurosBase'] += 1.5
+        cursoresComprados['valorBase'] += 10
+        cursoresComprados['cps'] += 1
+        localStorage.setItem("bCursorJuros", cursoresComprados['jurosBase']);
+        localStorage.setItem("bCursorValor", cursoresComprados['valorBase']);
+        localStorage.setItem("bCursorCPS", cursoresComprados['cps']);
+        window.location.reload()
+    } else {
+        cookiesHud.style.backgroundColor = "lightcoral"
+        setTimeout(() => {
+            cookiesHud.style.backgroundColor = "white"
+        }, 200);
+    }
+})
+
 // Passivos >>>
 
 // Cookies por Segundo
-if (cursoresComprados >= 1) {
+if (cursoresComprados['cps'] >= 1) {
     setInterval(() => {
-        cookiesAssados += cursoresComprados / 10;
+        cookiesAssados += cursoresComprados['cps'] / 10;
         valorUpdate();
-    }, 1000);
+        perSecUpdate();
+    }, 100);
 }
 
 // Atualizar a HUD com valores atualizados
@@ -111,7 +154,10 @@ function updateDebug() {
             "<hr>Upgrade Valor Base : " + upgradeClick['valorBase'].toFixed(1) +
             "<br>Upgrade Juros Base : " + upgradeClick['jurosBase'].toFixed(1) +
             "<br>Upgrade Valor Total : " + upgradeClickValor.toFixed(1) +
-            "<hr>Limpar : <br><button id='clearCookies'>Cookies</button><br><button id='clearStorage'>Storage</button>"
+            "<hr>Cursor Valor Base : " + cursoresComprados['valorBase'].toFixed(1) +
+            "<br>Cursor Juros Base : " + cursoresComprados['jurosBase'].toFixed(1) +
+            "<br>Cursor Valor Total : " + bCursorValor.toFixed(1) +
+            "<hr>Limpar : <br><button id='clearCookies'>Cookies</button><br><button id='clearCursors'>Cursores</button><br><button id='clearStorage'>Storage</button>"
 
         // Add 1k Cookies
 
@@ -129,12 +175,26 @@ function updateDebug() {
             updateDebug()
         })
 
+        // Limpar Cursores
+
+        document.getElementById("clearCursors").addEventListener("click", function () {
+            cursoresComprados['cps'] = 0
+            cursoresComprados['jurosBase'] = 1.5
+            cursoresComprados['valorBase'] = 10
+            cursoresComprados['cps'] = 0
+            localStorage.setItem("bCursorJuros", cursoresComprados['jurosBase']);
+            localStorage.setItem("bCursorValor", cursoresComprados['valorBase']);
+            localStorage.setItem("bCursorCPS", cursoresComprados['cps']);
+            window.location.reload();
+        })
+
         // Limpar Storage
 
         document.getElementById("clearStorage").addEventListener("click", function () {
             localStorage.clear()
             window.location.reload()
         })
+
     } else {
         document.getElementById("debug").style.display = 'none'
     }
