@@ -1,8 +1,6 @@
 // Huds
 let cookie = document.getElementById("thecookie");
 let cookiesHud = document.getElementById("cookies");
-let upgradesHud = document.getElementById("upgrades");
-let construcoesHud = document.getElementById("construcoes");
 let perSec = document.getElementById("perSec");
 
 // Valores
@@ -63,12 +61,17 @@ bCursorValor = cursoresComprados['valorBase'] * cursoresComprados['jurosBase'];
 
 // Criação da Tabela de Upgrades
 function upgradesTab() {
-    upgradesHud.innerHTML = "<img src='assets/img/click.png' class='icon' title='Cookies por Clique'>x " + cookiesPorClick + " <button id='upgradeClickBtn' class='upgradeBtn'>Comprar <b class='cookiePreco'>" + Math.round(upgradeClickValor.toFixed(1)) + "🍪</b></button>";
+    let cpsHud = document.getElementById("cpsHud");
+    cpsHud.innerHTML = "<button id='upgradeClickBtn' class='upgradeBtn'><b class='cookiePreco'>" + Math.round(upgradeClickValor.toFixed(1)) + "🍪</b><img src='assets/img/click.png' class='icon' title='Cookies por Clique'>x " + cookiesPorClick + "</button>";
+    let cpsHud2 = document.getElementById("cpsHud2");
+    cpsHud2.innerHTML = "<button id='upgradeClickBtn' class='upgradeBtn'><b class='cookiePreco'>" + Math.round(upgradeClickValor.toFixed(1)) + "🍪</b><img src='assets/img/click.png' class='icon' title='Cookies por Clique'>x " + cookiesPorClick + "</button>";
 }
 
 // Criação da Tabela de Construções
 function construcoesTab() {
-    construcoesHud.innerHTML = "<img src='assets/img/cursor.png' class='icon' title='Cookies por Clique'>x " + cursoresComprados['cps'] + " <button id='bCursorBtn' class='upgradeBtn'>Comprar <b class='cookiePreco'>" + Math.round(bCursorValor.toFixed(1)) + "🍪</b></button>";
+    let cursoresHud = document.getElementById("cursoresHud");
+    cursoresHud.innerHTML = "<button id='bCursorBtn' class='upgradeBtn'><b class='cookiePreco'>" + Math.round(bCursorValor.toFixed(1)) + "🍪</b><img src='assets/img/cursor.png' class='icon' title='Cursores'>x " + cursoresComprados['cps'] + "</button>";
+    cursoresHud.innerHTML = "<button id='bCursorBtn' class='upgradeBtn'><b class='cookiePreco'>" + Math.round(bCursorValor.toFixed(1)) + "🍪</b><img src='assets/img/cursor.png' class='icon' title='Cursores'>x " + cursoresComprados['cps'] + "</button>";
 }
 
 upgradesTab()
